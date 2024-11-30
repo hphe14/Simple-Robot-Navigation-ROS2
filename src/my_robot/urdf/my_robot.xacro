@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <!-- imported xacro my robot links-->
+    <xacro:include filename="colours.xacro" />
+    <xacro:include filename="robot_base.xacro" />
+    <xacro:include filename="wheel_links.xacro" />
+    <xacro:include filename="steer_links.xacro" />
+    <xacro:include filename="lidar.xacro" />
+    <xacro:include filename="plugins.xacro" />
+
+
+    <xacro:wheel_link wheel_link_prefix="back_left" />
+    <xacro:wheel_link wheel_link_prefix="back_right" />
+    <xacro:wheel_link wheel_link_prefix="front_left" />
+    <xacro:wheel_link wheel_link_prefix="front_right" />
+
+    <xacro:steer_link steer_link_prefix="front_right_rod" />
+    <xacro:steer_link steer_link_prefix="front_left_rod" />
+    <xacro:steer_link steer_link_prefix="back_right_rod" />
+    <xacro:steer_link steer_link_prefix="back_left_rod" />
+
+
+    <!-- <xacro:property name="lidar_x" value="${length/2 - lidar_radius}" />
+    <xacro:property name="lidar_z" value="${height + lidar_length/2}" /> -->
+
+    <xacro:property name="Rod_x" value="${(length/(2*length)) -length/2}" />
+    <xacro:property name="Rod_y" value="${width/2 +rod_length/2}" />
+    <xacro:property name="Rod_z" value="${wheel_radius/2}" />
+
+    <!-- Front left and right wheel rods -->
+    <joint name="left_steer_joint" type="revolute">
+        <parent link="base_link" />
+        <child link="front_left_rod_steer" />
+        <origin xyz="${Rod_x} ${Rod_y} ${Rod_z}" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit effort="100.0" lower="-1.0" upper="1.0" velocity="10.0" />
+    </joint>
+
+    <joint name="right_steer_joint" type="revolute">
+        <parent link="base_link" />
+        <child link="front_right_rod_steer" />
+        <origin xyz="${Rod_x} ${-Rod_y} ${Rod_z}" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit effort="100.0" lower="-1.0" upper="1.0" velocity="10.0" />
+
+    </joint>
+
+
+    <!-- Front left and right wheels -->
+    <joint name="front_left_wheel_joint" type="continuous">
+        <parent link="front_left_rod_steer" />
+        <child link="front_left_wheel" />
+        <origin xyz="0.0 0.075 0.0" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 1.0 0" />
+
+    </joint>
+    <joint name="front_right_wheel_joint" type="continuous">
+        <parent link="front_right_rod_steer" />
+        <child link="front_right_wheel" />
+        <origin xyz="0.0 -0.075 0.0" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 1.0 0" />
+
+    </joint>
+
+
+    <!-- Back left and right wheel rods -->
+    <joint name="back_left_rod_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="back_left_rod_steer" />
+        <origin xyz="${-Rod_x} ${Rod_y} ${Rod_z}" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 0.0 1.0" />
+    </joint>
+    <joint name="back_right_rod_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="back_right_rod_steer" />
+        <origin xyz="${-Rod_x} ${-Rod_y} ${Rod_z}" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 0.0 1.0" />
+    </joint>
+
+    <!-- Front left and right wheels -->
+    <joint name="back_left_wheel_joint" type="continuous">
+        <parent link="back_left_rod_steer" />
+        <child link="back_left_wheel" />
+        <origin xyz="0 0.075 0" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 1.0 0.0" />
+    </joint>
+    <joint name="back_right_wheel_joint" type="continuous">
+        <parent link="back_right_rod_steer" />
+        <child link="back_right_wheel" />
+        <origin xyz="0 -0.075 0" rpy="0.0 0.0 0.0" />
+        <axis xyz="0.0 1.0 0.0" />
+    </joint>
+
+    <!-- lidar joint -->
+    <!--     
+    <joint name="lidar_joint" type="fixed">
+        <parent link="base_link" />
+        <child link="lidar_link" />
+        <origin xyz="${lidar_x} 0 ${lidar_z}" rpy="0.0 0.0 0.0" />
+        <axis xyz="0 0 0" />
+    </joint> -->
+
+    <!-- <xacro:robot_gazebo_plugin /> -->
+
+</robot>

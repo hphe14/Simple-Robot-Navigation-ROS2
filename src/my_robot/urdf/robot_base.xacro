@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+
+    <xacro:include filename="inertia.xacro" />
+    <xacro:property name="base_mass" value="0.5" />
+    <xacro:property name="length" value="0.6" />
+    <xacro:property name="height" value="0.15" />
+    <xacro:property name="width" value="0.2" />
+
+
+    <xacro:macro name="base_origin">
+        <origin xyz="0 0 ${height/2}" rpy="0 0 0" />
+    </xacro:macro>
+
+    <link name="base_footprint" />
+
+    <link name="base_link">
+        <visual>
+            <geometry>
+                <box size="${length} ${width} ${height}" />
+            </geometry>
+            <xacro:base_origin />
+            <material name="grey" />
+        </visual>
+
+        <collision>
+            <geometry>
+                <box size="${length} ${width} ${height}" />
+            </geometry>
+            <xacro:base_origin />
+        </collision>
+
+        <xacro:cuboid_inertia mass="${base_mass}" a="${length}" b="${height}" c="${width}">
+            <xacro:base_origin />
+        </xacro:cuboid_inertia>
+
+
+    </link>
+
+    <joint name="base_joint" type="fixed">
+        <parent link="base_footprint" />
+        <child link="base_link" />
+        <xacro:base_origin />
+    </joint>
+
+
+</robot>

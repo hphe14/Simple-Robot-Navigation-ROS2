@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="inertia.xacro" />
+
+    <xacro:property name="rod_radius" value="0.01875" />
+    <xacro:property name="rod_length" value="0.1" />
+    <xacro:property name="rod_mass" value="0.1" />
+
+    <xacro:macro name="steer_link" params="steer_link_prefix">
+        <link name="${steer_link_prefix}_steer">
+
+            <visual>
+                <geometry>
+                    <cylinder radius="${rod_radius}" length="${rod_length}" />
+                </geometry>
+                <origin xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 0.0" />
+                <material name="grey" />
+            </visual>
+
+            <collision>
+                <geometry>
+                    <cylinder radius="${rod_radius}" length="${rod_length}" />
+                </geometry>
+                <origin xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 0.0" />
+            </collision>
+
+            <xacro:cylinder_inertia mass="${rod_mass}" radius="${rod_radius}"
+                length="${rod_length}">
+                <origin xyz="0.0 0.0 0.0" rpy="${pi/2} 0.0 0.0" />
+            </xacro:cylinder_inertia>
+
+        </link>
+    </xacro:macro>
+
+
+</robot>
