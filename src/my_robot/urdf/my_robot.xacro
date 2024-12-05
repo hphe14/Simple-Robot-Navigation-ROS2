@@ -29,21 +29,18 @@
     <xacro:property name="Rod_z" value="${wheel_radius/2}" />
 
     <!-- Front left and right wheel rods -->
-    <joint name="left_steer_joint" type="revolute">
+    <joint name="left_steer_joint" type="fixed">
         <parent link="base_link" />
         <child link="front_left_rod_steer" />
         <origin xyz="${Rod_x} ${Rod_y} ${Rod_z}" rpy="0.0 0.0 0.0" />
         <axis xyz="0.0 0.0 1.0" />
-        <limit effort="100.0" lower="-1.0" upper="1.0" velocity="10.0" />
     </joint>
 
-    <joint name="right_steer_joint" type="revolute">
+    <joint name="right_steer_joint" type="fixed">
         <parent link="base_link" />
         <child link="front_right_rod_steer" />
         <origin xyz="${Rod_x} ${-Rod_y} ${Rod_z}" rpy="0.0 0.0 0.0" />
         <axis xyz="0.0 0.0 1.0" />
-        <limit effort="100.0" lower="-1.0" upper="1.0" velocity="10.0" />
-
     </joint>
 
 
@@ -91,16 +88,5 @@
         <origin xyz="0 -0.075 0" rpy="0.0 0.0 0.0" />
         <axis xyz="0.0 1.0 0.0" />
     </joint>
-
-    <!-- lidar joint -->
-    <!--     
-    <joint name="lidar_joint" type="fixed">
-        <parent link="base_link" />
-        <child link="lidar_link" />
-        <origin xyz="${lidar_x} 0 ${lidar_z}" rpy="0.0 0.0 0.0" />
-        <axis xyz="0 0 0" />
-    </joint> -->
-
-    <!-- <xacro:robot_gazebo_plugin /> -->
 
 </robot>
