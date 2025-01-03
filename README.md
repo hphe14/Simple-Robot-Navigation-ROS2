@@ -17,22 +17,28 @@ Ubuntu Jammy 22.04
 
 
 ## How To Run
+### Main Launch File
     source install/setup.bash
     ros2 launch my_robot full.launch.py
 
-
-To use xbox controller, run [this](https://github.com/hphe14/Socket-Connection-For-Controller-inputs/blob/main/controller_input.py) python script on host windows pc:
+### Using An Xbox Controller
+1) Ensure you are on the same network for both Host and VM
+2) Run the [controller_input.py](https://github.com/hphe14/Socket-Connection-For-Controller-inputs/blob/main/controller_input.py) Python script on host Windows PC:
     
-Change HOST IP in Controller_client_inputs.py in the controller_inputs package to local ipv4 address 
-![399980301-a5b65bb3-5bc3-4746-8bac-7cde10dc16e8](https://github.com/user-attachments/assets/cd5073fa-15bf-4209-b936-0b2c28963c04)
+3) Update the HOST IP in [Controller_client_inputs.py](src/controller_inputs/controller_inputs/controller_client_inputs.py) in the [controller_inputs](src/controller_inputs) package to your local IPv4 address 
+
+![HostIPCodeSnip](https://github.com/user-attachments/assets/8e5ae707-c424-4886-87fe-ffcd513c0156)
 
 
 
 
-For Slam Toolbox:
+
+
+
+### For SLAM Toolbox:
 
     ros2 launch my_robot slam.launch.py
 
-For Nav2:
+### For Navigation (Nav2):
 
     ros2 launch my_robot navigation_launch.py
